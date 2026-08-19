@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>frame-static · 平面刚架静力求解器</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>frame-static</h1>
+  <p>平面刚架直接刚度法：节点位移 / 杆端力 / 支座反力</p>
+</header>
+<main>
+  <section class="panel">
+    <div class="row">
+      <label>示例</label>
+      <select id="example">
+        <option value="portal.json">portal.json · 一门式刚架（柱顶侧向力）</option>
+      </select>
+      <button id="load">加载示例</button>
+    </div>
+    <div class="row">
+      <label>模型 JSON</label>
+      <textarea id="model" rows="12" spellcheck="false"></textarea>
+    </div>
+    <div class="row">
+      <button id="solve">计算</button>
+      <span id="status" class="status"></span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>变形图</h2>
+    <svg id="canvas" width="640" height="420" viewBox="0 0 640 420"></svg>
+    <p class="hint">虚线为变形后形状（位移已放大显示）。</p>
+  </section>
+
+  <section class="panel">
+    <h2>支座反力</h2>
+    <table id="reactions">
+      <thead><tr><th>节点</th><th>自由度</th><th>反力</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <h2>杆端力</h2>
+    <table id="members">
+      <thead><tr><th>杆</th><th>Ni</th><th>Vi</th><th>Mi</th><th>Nj</th><th>Vj</th><th>Mj</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
