@@ -51,7 +51,13 @@ func LoadVector(m *model.Model, sys *System) linalg.Vec {
 		if err != nil {
 			continue
 		}
-		addDistLoad(F, g, e.Dist.Q, fi, ti)
+		eqLocal := element.EquivalentNodalLoad(g, e.Dist.Q)
+		// Rotate the 6-vector into global coordinates: F_global = T^T * F_local.
+		eqGlobal := element.Transform(g).T().MulVec(linalg.Vec(eqLocal[:]))
+		for k := 0; k < 3; k++ {
+			F[3*fi+k] += eqGlobal[k]
+			F[3*ti+k] += eqGlobal[3+k]
+		}
 	}
 	return F
 }
